@@ -11,13 +11,14 @@ func getOtp(userId int64, timeStamp int64) (string, error) {
 	if userId <= 0 || timeStamp <= 0 {
 		return "", fmt.Errorf("invalid userid: %d, timestamp: %d", userId, timeStamp)
 	}
+
 	// compute the hash of userid and timestamp
 	otpKey := getOtpUniqueKey(userId, timeStamp)
 	hasher := sha1.New()
 	hasher.Write([]byte(otpKey))
 	hashedOtpKey := hasher.Sum(nil)
 
-	// return string
+	// reformat ky
 	hashedOtpKeySliced := strings.Split(fmt.Sprintf("%x", hashedOtpKey), "")
 	prefixSixHashed := strings.Join(hashedOtpKeySliced[:6], "")
 
@@ -25,6 +26,7 @@ func getOtp(userId int64, timeStamp int64) (string, error) {
 	strKey := strconv.Itoa(int(userId))
 	setOtpKey(strKey, prefixSixHashed)
 
+	// return hashed key
 	return prefixSixHashed, nil
 }
 

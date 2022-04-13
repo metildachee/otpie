@@ -1,7 +1,5 @@
 package main
 
-// this is to store all the structures
-
 type Otp struct {
 	OneTimePassword string `json:"otp"`
 }
@@ -16,11 +14,11 @@ type GetOtpResponse struct {
 }
 
 type GetVerifyOtpRequest struct {
-	Otp
 	UserId int64 `json:"userid"`
+	Otp
 }
 
 type GetVerifyOtpResponse struct {
-	IsVerified bool `json:"isverified"`
-	UserId int64 `json:"userid"`
+	IsVerified bool  `json:"isverified"`
+	UserId     int64 `json:"userid"`
 }
